@@ -2,6 +2,8 @@
 
 TBD:
 
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.maxp/mlib.svg)](https://clojars.org/org.clojars.maxp/mlib)
+
 ## Changelog
 
 - **4.0.1**  
