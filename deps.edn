@@ -39,9 +39,12 @@
     ;; https://github.com/seancorfield/depstar
     :depstar
     {
-      :extra-paths ["resources"]
       :extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}}
 
+    :jar
+    {}
+      ; resources not packed
+      
     :uberjar
     {
       :extra-paths ["resources" "target/classes"]}

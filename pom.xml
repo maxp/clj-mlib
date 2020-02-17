@@ -3,11 +3,21 @@
     
   <modelVersion>4.0.0</modelVersion>
     
-  <groupId>org.clojars.maxp</groupId>
+  <groupId>maxp</groupId>
     
   <artifactId>mlib</artifactId>
     
-  <version>4.0.3</version>
+  <version>4.0.7</version>
+    
+  <description>mlib commons</description>
+    
+  <url>https://github.com/maxp/clj-mlib</url>
+    
+  <scm>
+        
+    <url>https://github.com/maxp/clj-mlib</url>
+      
+  </scm>
     
   <properties>
         
@@ -22,14 +32,6 @@
     <sourceDirectory>src</sourceDirectory>
       
   </build>
-    
-  <!-- <distributionManagement>
-    <repository>
-      <id>clojars</id>
-      <name>Clojars repository</name>
-      <url>https://clojars.org/repo</url>
-    </repository>
-  </distributionManagement> -->
   
   <dependencies>
     <dependency>
@@ -48,19 +50,14 @@
       <version>0.3.2</version>
     </dependency>
     <dependency>
-      <groupId>metosin</groupId>
-      <artifactId>jsonista</artifactId>
-      <version>0.2.5</version>
-    </dependency>
-    <dependency>
       <groupId>mount</groupId>
       <artifactId>mount</artifactId>
       <version>0.1.16</version>
     </dependency>
     <dependency>
-      <groupId>ring</groupId>
-      <artifactId>ring-jetty-adapter</artifactId>
-      <version>1.8.0</version>
+      <groupId>metosin</groupId>
+      <artifactId>jsonista</artifactId>
+      <version>0.2.5</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

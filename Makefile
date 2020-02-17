@@ -1,8 +1,11 @@
 # # #
 
-GROUP_ID 	= org.clojars.maxp
+GROUP_ID 	= maxp
 ARTEFACT  = mlib
 MAIN      = __root__.app.main
+
+PROJECT_DESCR = mlib commons
+PROJECT_URL = https://github.com/maxp/clj-mlib
 
 # # #
 
@@ -82,7 +85,7 @@ snapshot: uberjar
 # 		-DrepositoryId=${REPO_ID}	\
 # 		-Durl=${RELEASES_URL}
 
-deploy: jar
+deploy: bump jar
 	@mvn deploy:deploy-file 		\
 		-DpomFile=pom.xml					\
 		-Dfile=${JAR_FILE} 				\
@@ -95,15 +98,15 @@ deploy: jar
 
 inc-major:
 	@(VERS=`awk -F'.' '{print $$1+1 "." 0 "." 0}' VERSION` && echo $${VERS} > VERSION)
-	@cat VERSION
+	@echo -n "New version: " && cat VERSION
 
 inc-minor:
 	@(VERS=`awk -F'.' '{print $$1 "." $$2+1 "." $$3+1}' VERSION` && echo $${VERS} > VERSION)
-	@cat VERSION
+	@echo -n "New version: " && cat VERSION
 
 bump:
 	@(VERS=`awk -F'.' '{print $$1 "." $$2 "." $$3+1}' VERSION` && echo $${VERS} > VERSION)
-	@cat VERSION
+	@echo -n "New version: " && cat VERSION	
 
 clean:
 	rm -rf ${TARGET}

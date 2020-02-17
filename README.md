@@ -6,7 +6,7 @@ TBD:
 
 ## Changelog
 
-- **4.0.1**  
+- **4.0.11**  
   bundled for Clojars in new repo
 
 ---
