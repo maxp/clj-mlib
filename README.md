@@ -2,7 +2,7 @@
 
 TBD:
 
-[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.maxp/mlib.svg)](https://clojars.org/org.clojars.maxp/mlib)
+[![Clojars Project](https://img.shields.io/clojars/v/maxp/mlib.svg)](https://clojars.org/maxp/mlib)
 
 ## Changelog
 
