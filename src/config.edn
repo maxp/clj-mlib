@@ -1,0 +1,14 @@
+{
+  ;; application config 
+  :__app__
+  {}
+
+  ;; build key values sould be overriden by resources/build.edn
+  :build
+  {
+    :appname    "__app__"
+    :version    "DEV.0"
+    :commit     "DEV-commit-hash"
+    :timestamp  "1970-01-01T00:00:01+00:00"}}
+
+;;.

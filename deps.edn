@@ -1,0 +1,63 @@
+{
+  :paths ["src"]
+
+  :deps
+  {
+    org.clojure/clojure       {:mvn/version "1.10.1"}
+    org.clojure/core.async    {:mvn/version "0.7.559"}
+
+    clojure.java-time         {:mvn/version "0.3.2"}
+    metosin/jsonista          {:mvn/version "0.2.5"}
+    ; clj-http                  {:mvn/version "3.10.0"}
+
+    mount                     {:mvn/version "0.1.16"}
+    ; com.novemberain/monger    {:mvn/version "3.5.0"}
+    ; com.novemberain/langohr   {:mvn/version "5.1.0"}
+    ring/ring-jetty-adapter   {:mvn/version "1.8.0"}
+    
+    org.slf4j/slf4j-simple    {:mvn/version "1.7.30"}}
+  ;
+
+  :aliases
+  {
+    :dev
+    {
+      :extra-paths ["dev" "resources"]
+      :extra-deps {org.clojure/tools.namespace {:mvn/version "0.3.1"}}}      
+    ;
+    
+    :nrepl
+    {
+      :extra-paths ["dev" "resources"]
+      :extra-deps
+        { nrepl/nrepl                 {:mvn/version "0.6.0"}
+          cider/cider-nrepl           {:mvn/version "0.23.0"}
+          org.clojure/tools.namespace {:mvn/version "0.3.1"}}
+      :main-opts
+        ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
+
+    ;; https://github.com/seancorfield/depstar
+    :depstar
+    {
+      :extra-paths ["resources"]
+      :extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}}
+
+    :uberjar
+    {
+      :extra-paths ["resources" "target/classes"]}
+
+    ;; https://github.com/tonsky/uberdeps
+    :uberdeps
+    {
+      :extra-deps {uberdeps {:mvn/version "0.1.8"}}
+      :main-opts ["-m" "uberdeps.uberjar" "--aliases" "uberjar"]}}
+
+  ;; ;; ;; ;;
+
+  ; :mvn/repos
+  ; { "central" {:url "https://repo1.maven.org/maven2/"}
+  ;   "clojars" {:url "https://clojars.org/repo"}}
+
+  :. :.}
+
+;;.
