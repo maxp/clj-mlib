@@ -1,8 +1,7 @@
-
-(ns mlib.crypto
+(ns mlib.crypto.util
   (:import 
     [java.security MessageDigest]))
-;
+;=
 
 (defn ^String hexbyte [^Integer b]
   (.substring (Integer/toString (+ 0x100 (bit-and 0xff b)) 16) 1))

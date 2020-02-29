@@ -47,13 +47,14 @@
       
     :uberjar
     {
-      :extra-paths ["resources" "target/classes"]}
+      :extra-paths ["resources"]}}
 
     ;; https://github.com/tonsky/uberdeps
-    :uberdeps
-    {
-      :extra-deps {uberdeps {:mvn/version "0.1.8"}}
-      :main-opts ["-m" "uberdeps.uberjar" "--aliases" "uberjar"]}}
+    ; :uberdeps
+    ; {
+    ;   :extra-paths ["resources" "target/classes"]}}
+    ;   :extra-deps {uberdeps {:mvn/version "0.1.8"}}
+    ;   :main-opts ["-m" "uberdeps.uberjar" "--aliases" "uberjar"]}}
 
   ;; ;; ;; ;;
 

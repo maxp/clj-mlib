@@ -1,4 +1,4 @@
-(ns __root__.app.cfg
+(ns example_app.app.cfg
   (:require
     [clojure.spec.alpha   :as s]
     [mount.core   :refer  [defstate]]

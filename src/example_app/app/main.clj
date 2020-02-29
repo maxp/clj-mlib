@@ -1,5 +1,5 @@
 
-(ns __root__.app.main
+(ns example_app.app.main
   (:gen-class)
   (:require
     [clojure.string :refer [blank? split]]
@@ -9,7 +9,7 @@
     [mlib.util      :refer [edn-read edn-resource]]
     [mlib.logger    :refer [debug info warn]]))
     ;
-    ;[__root__.app._other :refer [_mount-deps]]))
+    ;[example_app.app._other :refer [_mount-deps]]))
 ;=
 
 (defn load-edn [file-name]
