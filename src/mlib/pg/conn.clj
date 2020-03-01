@@ -10,12 +10,14 @@
 
 ;; https://github.com/seancorfield/next-jdbc/blob/master/doc/all-the-options.md#
 ;; https://github.com/seancorfield/next-jdbc/blob/master/src/next/jdbc/connection.clj
+;; https://github.com/brettwooldridge/HikariCP
 ;; 
 (defn get-connection 
-  "db-spec {
-    :jdbcUrl \"jdbc:postgresql://host:5432/database?username=test&password=qwe123\"}
-    :auto-commit false (for :fetch-size statement option)
-  "
+  "db-spec 
+  {
+    :jdbcUrl \"jdbc:postgresql://host:5432/database?username=test&password=qwe123\"
+    :auto-commit false ;; for :fetch-size statement option)
+  }"
   ^HikariDataSource [db-spec]
   (->pool HikariDataSource db-spec))
 ;;
