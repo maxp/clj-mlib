@@ -8,6 +8,9 @@ TBD:
 
 ## Changelog
 
+- **4.1**  
+  next-jdbc
+
 - **4.0.11**  
   bundled for Clojars in new repo
 

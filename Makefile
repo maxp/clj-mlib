@@ -2,7 +2,7 @@
 
 GROUP_ID 	= maxp
 ARTEFACT  = mlib
-MAIN      = __root__.app.main
+MAIN      = example_app.app.main
 
 PROJECT_DESCR = mlib commons
 PROJECT_URL = https://github.com/maxp/clj-mlib
@@ -60,10 +60,12 @@ javac:
 # 	clojure -e "(set! *compile-path* \"${CLASSES}\") (compile '${MAIN})"
 
 jar: config
-	clojure -A:depstar -m hf.depstar.jar ${JAR_FILE}
+	@echo "build jar:" ${JAR_FILE}
+	@clojure -A:depstar -m hf.depstar.jar ${JAR_FILE}
 
 uberjar: clean config
-	clojure -A:depstar:uberjar -m hf.depstar.uberjar ${UBER_JAR} --main ${MAIN} --compile
+	@echo "Build uberjar:" ${UBER_JAR}
+	@clojure -A:depstar:uberjar -m hf.depstar.uberjar ${UBER_JAR} --main ${MAIN} --compile
 
 # uberdeps: clean pom config compile css
 #       clojure -A:uberdeps -m uberdeps.uberjar --target ${UBER_JAR} --main-class ${MAIN} --level info
