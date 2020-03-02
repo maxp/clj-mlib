@@ -3,9 +3,20 @@
   (:require
     [clojure.tools.namespace.repl :as tnr]
   ;  [mount.core :as mount]
+    [criterium.core :refer [quick-bench]]
     [util :as util]))
     ;
     ; [__root__.app.main :as main]))
+;=
+
+(let [number 5]
+  (quick-bench 
+    (condp = number
+      1 1 
+      2 2 
+      3 3 
+      4 4 
+      5 5))) 
 ;
 
 (defn restart []
