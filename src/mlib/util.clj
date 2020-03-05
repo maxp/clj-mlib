@@ -111,6 +111,12 @@
     (not (blank? s))))
 ;
 
+(comment
+
+  (cap-first "")
+
+  ,)
+
 ;; NOTE: replaced by medley.core/deep-merge
 ;; 
 ;; (defn- deep-merge* [& maps]
