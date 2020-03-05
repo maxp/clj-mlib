@@ -4,10 +4,10 @@
 
 (ns mlib.config
   (:require
-    [clojure.walk :refer [postwalk]]
-    [mount.core   :refer [defstate args]]
-    [mlib.util    :refer [deep-merge]]))
-;
+    [clojure.walk :refer  [postwalk]]
+    [medley.core  :refer  [deep-merge]]
+    [mount.core   :refer  [defstate args]]))
+;=
 
 (defn $subst 
   "substitute string parameters like \"${VAR}\" or \"${VAR:default}\" by os environment variables,

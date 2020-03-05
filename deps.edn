@@ -6,7 +6,10 @@
     org.clojure/clojure       {:mvn/version "1.10.1"}
     org.clojure/core.async    {:mvn/version "1.0.567"}
     clojure.java-time         {:mvn/version "0.3.2"}
-    
+
+    ;; https://github.com/weavejester/medley
+    medley                    {:mvn/version "1.3.0"}    
+
     mount                     {:mvn/version "0.1.16"}
     metosin/jsonista          {:mvn/version "0.2.5"}
     ; clj-http                  {:mvn/version "3.10.0"}
@@ -29,6 +32,7 @@
     org.slf4j/slf4j-simple    {:mvn/version "1.7.30"}}
     ;; org.slf4j/slf4j-nop {:mvn/version "1.7.30"}
     
+
     ;; example
     ;; mlib-clj {:local/root "/path/to/mlib-clj"}}
   ;
