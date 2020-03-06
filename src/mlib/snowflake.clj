@@ -48,6 +48,13 @@
   (atom (make-state (System/currentTimeMillis) (random16)))) 
 ;-
 
+(defn set-machine! [num]
+  (swap! *state* 
+    #(assoc % 
+        :machine 
+        (bit-and (bit-shift-left num MACHINE_SHIFT) MACHINE_MASK))))
+;;
+
 (defn- combine-bits [^long ts ^long machine ^long seqn]
   (swap! *state* #(assoc % :last-ts ts :seqn seqn))
   (bit-or
