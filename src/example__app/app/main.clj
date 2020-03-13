@@ -1,15 +1,14 @@
-
-(ns example_app.app.main
+(ns example__app.app.main
   (:gen-class)
   (:require
     [clojure.string :refer [blank? split]]
-    [mount.core     :as mount]
+    [mount.core     :refer [defstate start-with-args]]
     ;
     [mlib.config    :refer [conf]]
     [mlib.util      :refer [edn-read edn-resource]]
     [mlib.logger    :refer [debug info warn]]))
     ;
-    ;[example_app.app._other :refer [_mount-deps]]))
+    ;[example__app.app._other :refer [_mount-deps]]))
 ;=
 
 (defn load-edn [file-name]
@@ -24,7 +23,7 @@
       (map load-edn edns))))
 ;
 
-(mount/defstate app-start
+(defstate app-start
   :start
     (info "started:" (:build conf)))
 ;
@@ -35,7 +34,7 @@
     :suppress-linter-warning)
   
   (info "init...")
-  (mount/start-with-args
+  (start-with-args
     (concat
       [(edn-resource "config.edn") {:build (edn-resource "build.edn")}]
       (load-env-configs (System/getenv "CONFIG_EDN"))))

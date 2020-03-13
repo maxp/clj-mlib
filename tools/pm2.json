@@ -1,5 +1,5 @@
 {
-  "name": "__app__",
+  "name": "example__app",
   "script": "./run.sh",
   "interpreter": "bash",
   "restart_delay": 1000,

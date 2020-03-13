@@ -117,6 +117,23 @@
 
   ,)
 
+;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
+
+(def PCRE_SPECIALS ".^$*+?()[{|\\")
+(def PCRE_ESCAPE_MAP
+  (zipmap PCRE_SPECIALS (map #(str "\\" %) PCRE_SPECIALS)))
+
+(defn pcre-escape [s]
+  (escape s PCRE_ESCAPE_MAP))
+
+(comment
+  (pcre-escape "[")   "\\["
+  (pcre-escape ".")   "\\."
+  (pcre-escape "]")   "]"
+  .)
+
+;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
+
 ;; NOTE: replaced by medley.core/deep-merge
 ;; 
 ;; (defn- deep-merge* [& maps]

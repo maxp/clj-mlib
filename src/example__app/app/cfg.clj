@@ -1,4 +1,4 @@
-(ns example_app.app.cfg
+(ns example__app.app.cfg
   (:require
     [clojure.spec.alpha   :as s]
     [mount.core   :refer  [defstate]]
@@ -37,7 +37,7 @@
 
 (defstate app
   :start
-    (:api conf))
+    (:example__app conf))
 ;=
 
 ;;.

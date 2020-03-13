@@ -2,7 +2,7 @@
 
 GROUP_ID 	= maxp
 ARTEFACT  = mlib
-MAIN      = example_app.app.main
+MAIN      = example__app.app.main
 
 PROJECT_DESCR = mlib commons
 PROJECT_URL = https://github.com/maxp/clj-mlib

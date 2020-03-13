@@ -4,6 +4,15 @@
 
 TBD:
 
+    :lint-as {
+      app.database.hugsql/declare-fn clojure.core/declare
+      rum.core/defc  clj-kondo.lint-as/def-catch-all
+      rum.core/defcs clj-kondo.lint-as/def-catch-all
+      rum.core/defcc clj-kondo.lint-as/def-catch-all
+    }
+
+    [org.clojure/core.match "1.0.0"]
+
 [![Clojars Project](https://img.shields.io/clojars/v/maxp/mlib.svg)](https://clojars.org/maxp/mlib)
 
 ## Changelog
