@@ -1,0 +1,22 @@
+
+{
+  ;;
+  :linters
+  {
+    :unused-referred-var
+    {:exclude {mlib.logger [debug warn]}}  
+
+    :unused-namespace
+    {:exclude [mlib.logger]}
+  }
+
+  :lint-as 
+  {
+    mount.core/defstate                 clojure.core/def
+    garden.def/defstyles                clojure.core/def
+    clojurewerkz.quartzite.jobs/defjob  clojure.core/defn
+    next.jdbc/with-transaction          clojure.core/with-open
+  }
+  ;;
+}
+
