@@ -3,11 +3,19 @@
     [clojure.spec.alpha     :as     s]
     [clojure.string         :refer  [blank?]]
     ;
-    [ring.adapter.jetty     :refer  [run-jetty]]
+    [ring.middleware.params           :refer  [wrap-params]]
+    [ring.middleware.keyword-params   :refer  [wrap-keyword-params]]
+    [ring.middleware.multipart-params :refer  [wrap-multipart-params]]
+    [ring.adapter.jetty               :refer  [run-jetty]]
     ;
-    [mlib.http.middleware   :refer  [wrap-cors wrap-server-name]]))
+    [mlib.http.middleware             :refer  [wrap-cors wrap-json-params wrap-server-name]]))
 ;=
 
+  ;; [ring.middleware.keyword-params :refer [wrap-keyword-params]]
+  ;; [ring.middleware.nested-params :refer [wrap-nested-params]]
+  ;; [ring.middleware.multipart-params :refer [wrap-multipart-params]]
+  ;; [ring.middleware.params :refer [wrap-params]])
+            
 (defn not-blank? [s]
   (and (string? s) (not (blank? s))))
 
@@ -29,7 +37,10 @@
   (->
     handler
     (wrap-server-name (:server-name options))
-   
+    (wrap-json-params)
+    (wrap-keyword-params) 
+    (wrap-multipart-params)
+    (wrap-params) 
     (wrap-cors)
     (run-jetty 
       (assoc options 

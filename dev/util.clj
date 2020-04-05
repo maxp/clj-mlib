@@ -1,6 +1,7 @@
 
 (ns util
   (:import
+    [java.time LocalDateTime]
     [java.time.format DateTimeFormatter])
   (:require
     [clojure.string :as str]
@@ -21,9 +22,10 @@
     (str/trim)))
 ;;
 
+
 (defn iso-datetime [& [dt]]
-  (time/format DateTimeFormatter/ISO_LOCAL_DATE_TIME 
-    (or dt (time/local-date-time))))
+  (.format DateTimeFormatter/ISO_LOCAL_DATE_TIME 
+    (or dt (LocalDateTime/now))))
 ;;
 
 (defn configs []
@@ -33,8 +35,6 @@
       { :commit    (get-commit-hash)
         :timestamp (iso-datetime)}}])
 ;
-
-(time/format DateTimeFormatter/ISO_LOCAL_DATE_TIME (time/local-date-time))
 
 (defn start-conf[]
   (mount/stop)
