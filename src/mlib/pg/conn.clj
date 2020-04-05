@@ -12,7 +12,7 @@
 ;; https://github.com/seancorfield/next-jdbc/blob/master/src/next/jdbc/connection.clj
 ;; https://github.com/brettwooldridge/HikariCP
 ;; 
-(defn get-connection 
+(defn pooled-datasource
   "db-spec 
   {
     :jdbcUrl \"jdbc:postgresql://host:5432/database?username=test&password=qwe123\"
@@ -27,16 +27,31 @@
   (let [db-spec 
         {:jdbcUrl "jdbc:postgresql://localhost/test?user=test&password=qwe123"}]
     ;
-    (with-open [ds (get-connection db-spec)]
-      (jdbc/execute! ds ["insert into t1(id, tx) values (1,1)"]))
+    (with-open [ds (pooled-datasource db-spec)]
+      (with-open [conn (jdbc/get-connection ds)]
+        (jdbc/execute! conn ["insert into t1(id, tx) values (1,1)"])))
 
-    (with-open [ds (get-connection db-spec)]
-      (jdbc/execute! ds ["select * from t1"])))
+    (with-open [ds (pooled-datasource db-spec)]
+      (with-open [conn (jdbc/get-connection ds)]
+        (jdbc/execute! conn ["select * from t1"]))))
 
       ;(jdbc/execute! ds ...)
       ; (do-other-stuff ds args)
       ;(into [] (map :column) (jdbc/plan ds ...))))
 
   ,)
+
+;; (defstate ds
+;;   :start
+;;     (pooled-datasource
+;;        {:auto-commit  false
+;;         :jdbcUrl      (:url cfg/psql)})
+;;   :stop
+;;     (when ds
+;;       (.close ds)))
+;; ;-
+
+;; (defn dbc []
+;;   (get-connection ds))
 
 ;;.
