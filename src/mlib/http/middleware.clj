@@ -1,4 +1,4 @@
-(ns mlib.http.middelware
+(ns mlib.http.middleware
   (:import
     [com.fasterxml.jackson.core JsonParseException])
   (:require
