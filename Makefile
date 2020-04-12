@@ -25,8 +25,8 @@ endif
 	
 #
 RESOURCES = ./resources
-TARGET 		= ./target
-CLASSES 	= ${TARGET}/classes
+TARGET    = ./target
+# CLASSES   = ${TARGET}/classes
 JAR_FILE  = ${TARGET}/${ARTEFACT}-${VERSION}.jar
 UBER_JAR  = ${TARGET}/${ARTEFACT}.jar
 BUILD_EDN = ${RESOURCES}/build.edn

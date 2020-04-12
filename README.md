@@ -17,6 +17,9 @@ TBD:
 
 ## Changelog
 
+- **4.2**  
+  http server, middleware, util
+
 - **4.1**  
   next-jdbc
 
