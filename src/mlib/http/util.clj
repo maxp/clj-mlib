@@ -2,7 +2,8 @@
   (:require
     [clojure.string   :refer  [split]]
     [clojure.java.io  :refer  [input-stream]]
-    [jsonista.core    :refer  [object-mapper read-value write-value-as-bytes]])) 
+    [jsonista.core    :refer  
+      [object-mapper read-value write-value-as-bytes write-value-as-string]])) 
 ;=
 
 (defn authorization-split [req]
@@ -42,6 +43,10 @@
   { :status   200
     :headers  {"Content-Type" "application/json; charset=utf-8"}
     :body     (-> data write-value-as-bytes input-stream)})
+;;
+
+(defn json-string [data]
+  (write-value-as-string data json-mapper))
 ;;
 
 (comment
