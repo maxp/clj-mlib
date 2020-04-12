@@ -1,6 +1,6 @@
 (ns mlib.crypto.bcrypt
   (:import
-    [mlib-org.mindrot.jbcrypt BCrypt]))
+    [mlib_org.mindrot.jbcrypt BCrypt]))
 ;=
 
 ;; http://www.mindrot.org/projects/jBCrypt/
