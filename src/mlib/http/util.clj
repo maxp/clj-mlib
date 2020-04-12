@@ -49,12 +49,21 @@
   (write-value-as-string data json-mapper))
 ;;
 
+(defn edn-response [data]
+  { :status   200
+    :headers  {"Content-Type" "application/edn"}
+    :body     (pr-str data)})
+;;
+
+
 (comment
 
   (->
     (json-response {:a {"B" [true]}})
     (:body)
     (parse-json-value))
+
+  (edn-response {:a nil :b [1 2 3]})
 
   ,)
 
