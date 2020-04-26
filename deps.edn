@@ -24,8 +24,8 @@
     
     ;; pg:
     org.postgresql/postgresql {:mvn/version "42.2.12"}
-    seancorfield/next.jdbc    {:mvn/version "1.0.409"}
-    com.zaxxer/HikariCP       {:mvn/version "3.4.2"}
+    seancorfield/next.jdbc    {:mvn/version "1.0.424"}
+    com.zaxxer/HikariCP       {:mvn/version "3.4.3"}
 
     ;; logger stub
     org.slf4j/slf4j-simple    {:mvn/version "1.7.30"}}
@@ -43,7 +43,7 @@
       :extra-paths ["dev" "resources"]
       :extra-deps 
       {
-        org.clojure/tools.namespace {:mvn/version "0.3.1"}
+        org.clojure/tools.namespace {:mvn/version "1.0.0"}
         criterium/criterium         {:mvn/version "0.4.5"}}}
     ;
     
@@ -59,7 +59,7 @@
     ;; https://github.com/seancorfield/depstar
     :depstar
     {
-      :extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}}
+      :extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}}
 
     :jar
     {}
