@@ -1,33 +1,20 @@
 
 (ns user
   (:require
-    [clojure.tools.namespace.repl :as tnr]
-  ;  [mount.core :as mount]
+    [mount.core :as mount]
     [criterium.core :refer [quick-bench]]
-    [util :as util]))
+    [util :as util]
     ;
-    ; [__root__.app.main :as main]))
+    [example__app.cfg :as cfg]))
 ;=
 
-(let [number 5]
-  (quick-bench 
-    (condp = number
-      1 1 
-      2 2 
-      3 3 
-      4 4 
-      5 5))) 
+(defn start-conf []
+  (->
+    (mount/only [#'cfg/conf])
+    (mount/with-args (util/configs))
+    (mount/start)))
 ;
 
-(defn restart []
-  (prn "restart")
-  (util/stop)
-  (util/start))
-;
-
-(defn reset []
-  (tnr/refresh :after 'user/restart))
-;
 
 ; (mount/defstate dev-main
 ;   :start
@@ -36,10 +23,17 @@
 
 (comment
 
-  (restart)
+  (try
+    (start-conf)
+    (catch Exception ex
+      ex))
 
-  (reset)
+  cfg/conf
+
+  (util/restart)
+
+  (util/reset)
   
-  ,)
+  (quick-bench (+ 1 2))
 
-;;.
+  ,)

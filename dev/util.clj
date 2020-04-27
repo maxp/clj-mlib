@@ -1,16 +1,14 @@
-
 (ns util
   (:import
-    [java.time LocalDateTime]
+    [java.time        LocalDateTime]
     [java.time.format DateTimeFormatter])
   (:require
-    [clojure.string :as str]
-    [clojure.java.shell :refer [sh]]
-    [java-time :as time]
+    [clojure.string     :refer  [trim trim-newline]]
+    [clojure.java.shell :refer  [sh]]
+    [clojure.java.io    :refer  [resource]]
+    [clojure.tools.namespace.repl :as tnr]    
     [mount.core :as mount]
-    ;
-    [mlib.config :refer [conf]]
-    [mlib.util :refer [edn-read edn-resource]]))
+    [mlib.config.core :refer [edn-slurp]]))
     ;
 ;=
 
@@ -18,10 +16,9 @@
   (->
     (sh "git" "rev-parse" "HEAD")
     (:out)
-    (str/trim-newline)
-    (str/trim)))
+    (trim-newline)
+    (trim)))
 ;;
-
 
 (defn iso-datetime [& [dt]]
   (.format DateTimeFormatter/ISO_LOCAL_DATE_TIME 
@@ -29,25 +26,17 @@
 ;;
 
 (defn configs []
-  [ (edn-resource "config.edn")
-    (edn-read "../conf/dev.edn")
-    {:build
-      { :commit    (get-commit-hash)
-        :timestamp (iso-datetime)}}])
-;
-
-(defn start-conf[]
-  (mount/stop)
-  (->
-    (mount/only [#'conf])
-    (mount/with-args (configs))
-    (mount/start)))
-;
+  (let [env (System/getenv)]
+    [(-> "config.edn" resource (edn-slurp env))
+     (->  "../conf/dev.edn" (edn-slurp env))
+     { :build
+       {:commit    (get-commit-hash)
+        :timestamp (iso-datetime)}}]))
+;;
 
 (defn restart []
   (mount/stop)
-  (mount/start-with-args
-    (configs)))
+  (mount/start-with-args (configs)))
 ;
 
 (defn start []
@@ -58,16 +47,8 @@
 (defn stop []
   (prn "dev/stop")
   (mount/stop))
-;
+;;
 
-
-(comment
-
-  (restart)  
-
-  (start-conf)
-
-  .)
-;
-
-;;.
+(defn reset []
+  (tnr/refresh :after 'util/restart))
+;;

@@ -14,7 +14,7 @@
     ; clj-http                  {:mvn/version "3.10.0"}
     
     ;; mongodb:
-    ; com.novemberain/monger    {:mvn/version "3.5.0"}
+    com.novemberain/monger    {:mvn/version "3.5.0"}
     
     ;; rabbitmq:         
     ; com.novemberain/langohr   {:mvn/version "5.1.0"}

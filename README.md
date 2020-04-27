@@ -17,6 +17,10 @@ TBD:
 
 ## Changelog
 
+- **4.3**  
+  config moved to namespase `mlib.config.core`,  
+  #envstr/#envint/#envbool support in config  
+
 - **4.2**  
   http server, middleware, util
 

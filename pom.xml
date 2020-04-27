@@ -7,7 +7,7 @@
     
   <artifactId>mlib</artifactId>
     
-  <version>4.2.14</version>
+  <version>4.3.17</version>
     
   <description>mlib commons</description>
     
@@ -42,7 +42,7 @@
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>3.4.2</version>
+      <version>3.4.3</version>
     </dependency>
     <dependency>
       <groupId>ring</groupId>
@@ -62,7 +62,7 @@
     <dependency>
       <groupId>seancorfield</groupId>
       <artifactId>next.jdbc</artifactId>
-      <version>1.0.409</version>
+      <version>1.0.424</version>
     </dependency>
     <dependency>
       <groupId>mount</groupId>
@@ -73,6 +73,11 @@
       <groupId>metosin</groupId>
       <artifactId>jsonista</artifactId>
       <version>0.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.novemberain</groupId>
+      <artifactId>monger</artifactId>
+      <version>3.5.0</version>
     </dependency>
     <dependency>
       <groupId>ring</groupId>

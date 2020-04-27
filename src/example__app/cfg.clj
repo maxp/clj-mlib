@@ -1,9 +1,9 @@
-(ns example__app.app.cfg
+(ns example__app.cfg
   (:require
     [clojure.spec.alpha   :as s]
-    [mount.core   :refer  [defstate]]
-    [mlib.config  :as     config]
-    [mlib.util  :refer    [not-blank?]]))
+    [mount.core   :refer  [defstate args]]
+    [medley.core  :refer  [deep-merge]]
+    [mlib.util    :refer  [not-blank?]]))
 ;=
 
 ;; example config spec
@@ -18,26 +18,30 @@
     :opt-un [::url]))
 ;
 
-(s/def ::conf
+(s/def ::example__app
   (s/keys
     :req-un [::api]))
+;=
+
+(s/def ::conf
+  (s/keys
+    :req-un [::example_app]))
 ;=
 
 ;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
 
 (defstate conf
   :start
-    (let [c (s/conform ::conf config/conf)]
-      (when (= ::s/invalid c)
+    (let [d (apply deep-merge (args))
+          c (s/conform ::conf d)]
+      (if (= ::s/invalid c)
         (throw  
           (ex-info "invalid config" 
-            (s/explain-data ::conf config/conf))))
-      c))
+            {:problems (::s/problems (s/explain-data ::conf d))}))
+        c)))
 ;=
 
 (defstate app
   :start
     (:example__app conf))
 ;=
-
-;;.
