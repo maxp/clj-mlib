@@ -17,6 +17,9 @@ TBD:
 
 ## Changelog
 
+- **4.4**
+  logger format changed to json compatible (with logstash in mind)
+
 - **4.3**  
   config moved to namespase `mlib.config.core`,  
   #envstr/#envint/#envbool support in config  
