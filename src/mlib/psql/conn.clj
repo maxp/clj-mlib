@@ -1,4 +1,4 @@
-(ns mlib.pg.conn
+(ns mlib.psql.conn
   (:import 
     [com.zaxxer.hikari    HikariDataSource])
   (:require 

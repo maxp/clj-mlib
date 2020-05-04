@@ -1,4 +1,4 @@
-(ns mlib.pg.json
+(ns mlib.psql.json
   (:import
     [org.postgresql.util  PGobject])
   (:require 
