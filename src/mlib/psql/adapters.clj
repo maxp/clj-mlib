@@ -1,4 +1,4 @@
-(ns mlib.psql.json
+(ns mlib.psql.adapters
   (:import
     [java.sql             Array PreparedStatement]
     [org.postgresql.util  PGobject])
