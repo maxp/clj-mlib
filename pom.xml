@@ -7,7 +7,7 @@
     
   <artifactId>mlib</artifactId>
     
-  <version>4.4.19</version>
+  <version>4.5.24</version>
     
   <description>mlib commons</description>
     
@@ -62,7 +62,12 @@
     <dependency>
       <groupId>seancorfield</groupId>
       <artifactId>next.jdbc</artifactId>
-      <version>1.0.424</version>
+      <version>1.0.445</version>
+    </dependency>
+    <dependency>
+      <groupId>com.taoensso</groupId>
+      <artifactId>timbre</artifactId>
+      <version>4.10.0</version>
     </dependency>
     <dependency>
       <groupId>mount</groupId>

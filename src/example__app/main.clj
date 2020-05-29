@@ -4,7 +4,7 @@
     [mount.core       :refer [defstate start-with-args]]
     ;
     [mlib.config.core :refer [load-configs]]
-    [mlib.logger      :refer [debug info warn]]
+    [taoensso.timbre  :refer [debug info warn]]
     ;
     [example__app.cfg :refer [conf]]))
     ;[example__app.app._other :refer [_mount-deps]]))

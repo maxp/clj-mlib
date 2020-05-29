@@ -41,9 +41,11 @@
    :body    "Malformed JSON request."})
 ;-
 
+(def RE_APPLICATION_JSON #"^application/(.+?\+)?json")
+
 (defn- json-request? [request]
   (when-let [ctype (get-in request [:headers "content-type"])]
-    (boolean (re-find #"^application/(.+?\+)?json" ctype))))
+    (boolean (re-find RE_APPLICATION_JSON ctype))))
 ;-
 
 (defn- parse-json-data [body]

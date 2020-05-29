@@ -24,9 +24,10 @@
     
     ;; pg:
     org.postgresql/postgresql {:mvn/version "42.2.12"}
-    seancorfield/next.jdbc    {:mvn/version "1.0.424"}
+    seancorfield/next.jdbc    {:mvn/version "1.0.445"}
     com.zaxxer/HikariCP       {:mvn/version "3.4.3"}
 
+    com.taoensso/timbre       {:mvn/version "4.10.0"}
     ;; logger stub
     org.slf4j/slf4j-simple    {:mvn/version "1.7.30"}}
     ;; org.slf4j/slf4j-nop {:mvn/version "1.7.30"}
