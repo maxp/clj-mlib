@@ -10,6 +10,9 @@
     [com.mongodb WriteConcern]))
 ;=
 
+;; (def ^:const ERROR_DUPLICATED_KEY 11000)
+;; (.getCode com.mongodb.MongoException)
+
 ;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
 
 (defn id_id [rec]

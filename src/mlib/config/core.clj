@@ -20,16 +20,19 @@
 ;;
 
 (defn load-configs [& [paths]]
-  (let [env (System/getenv)
-        ep  (or paths (split-path (get env "CONFIG_EDN")))]
-    (concat
-      [ (-> "config.edn" resource (edn-slurp env))
-        {:build 
-          (-> "build.edn" resource (edn-slurp env))}]
+  (let [env   (System/getenv)
+        ep    (or paths (split-path (get env "CONFIG_EDN")))
+        conf  (-> "config.edn" resource (edn-slurp env))
+        build (when-let [build-file (resource "build.edn")]
+                {:build (edn-slurp build-file env)})]
+    ;
+    (concat [conf build]
       (map #(edn-slurp % env) ep))))
 ;;
 
 (comment
+
+  (load-configs)
 
   (let [test-data
         "{:test

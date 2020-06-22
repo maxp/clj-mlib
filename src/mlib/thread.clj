@@ -61,7 +61,7 @@
   ;; example
 
   ; (defn init [state']
-  ;   (update state' assoc :conn (make-connection cfg)))
+  ;   (swap! state' assoc :conn (make-connection cfg)))
   ; ;
 
   ; (defn step [state']
