@@ -1,0 +1,117 @@
+#!/usr/bin/env bb
+
+(require 'babashka.classpath)
+(babashka.classpath/add-classpath "./tools")
+
+(ns bmk.main
+  (:import
+    [java.net URI URL])
+  (:require
+    [clojure.edn        :refer  [read-string]]
+    [clojure.java.shell :refer  [sh]]
+    [bmk.core :refer [print-lines cmd sh-c psql-interactive exec-wait-env]]))
+;=
+
+;; - - - - - - - - constants - - - - - - - - - - -
+
+(def CONFIG_EDN "../../conf/dev.edn")
+(def DEV_RES    "./build/dev")
+(def PROD_RES   "./build/prod")
+  
+
+(defn read-dev-edn []
+  (-> "../../conf/dev.edn" slurp read-string))
+
+;; - - - - - - - - command handlers - - - - - - - - - - -
+
+(defn cssdev [_]
+  (let [publ (str DEV_RES "/public/")]
+    (cmd "mkdir" "-p" publ)
+    (sh-c (str "cp -r assets/* " publ))
+    (cmd "npx" "tailwindcss" "build" "assets/css/styles.css" 
+                "-o" (str publ "css/styles.css"))))
+;;
+
+
+; - - - - - - - - - - - - - - - - - - -
+
+
+;; nrepl: export CONFIG_EDN = ../conf/dev.edn
+;; nrepl:
+;;         clojure -A:dev:nrepl
+
+(defn nrepl [_]
+  (println ["clojure" "-A:dev:nrepl"])
+  (exec-wait-env 
+    ["clojure" "-A:dev:nrepl"] 
+    {:CONFIG_EDN CONFIG_EDN}))
+
+; - - - - - - - - - - - - - - - - - - -
+
+
+(defn psql [_]
+  (let [jdbc-url (-> (read-dev-edn) :gpxtrack :psql :url)]
+    (psql-interactive jdbc-url)))
+;;
+
+; - - - - - - - - - - - - - - - - - - -
+
+(declare COMMANDS)
+
+(defn help [_]
+  (println "\nbmk <command>\n")
+  (doseq [c COMMANDS]
+    (println "   " (:id c) "-" (:descr c)))
+  (println)
+  (System/exit 1))
+;;
+
+(def COMMANDS
+  [
+    {:id :help    :handler help   :descr "display help"}
+    {:id :nrepl   :handler nrepl  :descr "nrepl with dev config"}
+    {:id :psql    :handler psql   :descr "exec psql with dev.edn config parameter"}
+    {:id :cssdev  :handler cssdev :descr "tailwind css processor in dev mode"}])
+;;
+
+(defn- find-command-handler [cmd]
+  (or
+    (some #(when (= cmd (:id %)) %) COMMANDS)
+    {:handler help}))
+;-
+
+;; - - - - - - - - - main - - - - - - - - - -
+
+(defn main [args]
+  (let [arg1 (first args)
+        cmd  (if (= \: (first arg1))
+                (keyword (subs arg1 1))
+                (keyword arg1))
+        ;
+        {f :handler} 
+        (find-command-handler cmd)]
+    ;
+    (print-lines (f args))
+    (System/exit 0)))
+;;
+  
+(main *command-line-args*)
+  
+;;.
+
+
+; prod_assets:
+;         @echo "prod assets"
+;         @mkdir -p ${PROD_RES}/public
+;         @cp -r assets/* ${PROD_RES}/public
+
+; tailwindcss: export NODE_ENV = production
+; tailwindcss:
+;         @echo "build css"
+;         @npx tailwindcss build assets/css/styles.css -o ${PROD_RES}/public/css/styles.css
+
+; build_js:
+;         @npx shadow-cljs release prod
+
+; prodpack: prod_assets build_js tailwindcss
+;         @echo "prod: assets, js, css."
