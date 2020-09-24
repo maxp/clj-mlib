@@ -1,26 +1,35 @@
 (ns mlib.http.util
   (:require
     [clojure.string   :refer  [split blank? lower-case]]
-    [clojure.java.io  :refer  [input-stream]]
-    [jsonista.core    :refer  
-      [object-mapper read-value write-value-as-bytes write-value-as-string]])) 
+    [jsonista.core    :as     json]))
 ;=
 
-;; NOTE: deprecated
-(defn authorization-split [req]
-  (when-let [auth (get-in req [:headers "authorization"])]
-    (when (string? auth)
-      (split auth #"\s+" 2))))
+; - - - - - - - - - - - - - - - - - - -
+
+(def RE_APPLICATION_JSON  #"^application/(.+?\+)?json")
+
+(defn json-content-type? [{headers :headers}]
+  (when-let [ctype
+             (or
+              (get headers :content-type)
+              (get headers "content-type"))]
+    (and
+     (string? ctype)
+     (boolean (re-find RE_APPLICATION_JSON ctype)))))
+;-
+
+(defn parse-json-body [resp]
+  (when (json-content-type? resp)
+    (json/read-value (:body resp) json/keyword-keys-object-mapper)))
 ;;
 
-(comment
+(defn json-string [obj]
+  (json/write-value-as-string obj json/keyword-keys-object-mapper))
+;;
 
-  (authorization-split
-    {:headers {"authorization" "Bearer 123456 789"}}) ;; => ["Bearer" "123456 789"]
+; - - - - - - - - - - - - - - - - - - -
 
-  ,)
-
-;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
+;; DEPRECATED
 
 (defn- split-pair [s]
   (let [[k v] (split s #"\s+" 2)]
@@ -60,34 +69,28 @@
 
   ,)
 
-;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
+; - - - - - - - - - - - - - - - - - - -
 
 (defn x-real-ip [req]
   (let [headers (get req :headers)]
     (or
-     (get headers "x-real-ip")
-     (get headers "x-forwarded-for")
-     (get req     :remote-addr))))
+      (get headers :x-real-ip)
+      (get headers "x-real-ip")
+      (get headers :x-forwarded-for)
+      (get headers "x-forwarded-for")
+      (get req     :remote-addr))))
 ;;
 
 ;; ;; ;; ;; ;; ;; ;; ;; ;; ;;
 
-(def json-mapper 
-  (object-mapper {:decode-key-fn true}))
-;;
-
-(defn parse-json-value [body]
-  (read-value body json-mapper))
-;;
+;; (defn parse-json-value [body]
+;;   (json/read-value body json/keyword-keys-object-mapper))
+;; ;;
 
 (defn json-response [data]
   { :status   200
-    :headers  {"Content-Type" "application/json; charset=utf-8"}
-    :body     (-> data write-value-as-bytes input-stream)})
-;;
-
-(defn json-string [data]
-  (write-value-as-string data json-mapper))
+    :headers  {"Content-Type" "application/json;charset=utf-8"}
+    :body     (json-string data)})
 ;;
 
 (defn edn-response [data]
@@ -99,12 +102,16 @@
 
 (comment
 
-  (->
-    (json-response {:a {"B" [true]}})
-    (:body)
-    (parse-json-value))
-
+  (json-response {:a {"B" [true]}})
   (edn-response {:a nil :b [1 2 3]})
+
+  (require '[criterium.core :refer [quick-bench]])
+
+  (let [data {:a [1 2 3 4] :b "qweqweqweqweqw" :c "123123123123"}]
+    (quick-bench    ;; <- this one is better
+      (json/write-value-as-string data json/keyword-keys-object-mapper))
+    (quick-bench
+      (json/write-value-as-bytes data json/keyword-keys-object-mapper)))
 
   ,)
 
