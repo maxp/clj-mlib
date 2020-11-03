@@ -84,7 +84,13 @@
               (combine-bits ts machine 0))))))))
 ;;
 
-(defn id-ts [^long id]
+(defn ts->id ^long [^long ts]
+  (when (< ts EPOCH)
+    (throw (IllegalArgumentException. (str "ts must be grater than EPOCH: " EPOCH))))
+  (combine-bits ts 0 0))
+;;
+
+(defn id->ts [^long id]
   (+ EPOCH
     (bit-shift-right
       (bit-and id TIMESTAMP_MASK)
@@ -95,9 +101,19 @@
 
 (comment
 
+
+  (id->ts 1111)
+  ;; => 1577836800000
+
+  (ts->id 1577836800001)
+  ;; => 4194304
+
+  
   (require '[criterium.core :refer [quick-bench]])
 
   (next-id)
+  ;; => 111403924373422080
+
 
   (time
     (count (set (repeatedly 10000 next-id))))
